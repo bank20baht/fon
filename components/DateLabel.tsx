@@ -5,9 +5,14 @@ import globalStyles from '../styles/globalStyles';
 type Props = {};
 
 const DateLabel = (props: Props) => {
+  const date = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  });
   return (
     <View style={{justifyContent: 'center', alignItems: 'center'}}>
-      <Text style={globalStyles.dateText}>Sunday, 11 June</Text>
+      <Text style={globalStyles.dateText}>{date}</Text>
     </View>
   );
 };

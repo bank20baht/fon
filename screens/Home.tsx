@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, Button, PermissionsAndroid, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  PermissionsAndroid,
+  ScrollView,
+  StatusBar,
+} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import Permissions from 'react-native-permissions';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -9,8 +16,8 @@ import globalStyles from '../styles/globalStyles';
 import DateLabel from '../components/DateLabel';
 import CardWeather from '../components/CardWeather';
 import WeekForecast from '../components/WeekForecast';
-
-// https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longtitude}&units=metric&appid=c0d919cc900c017e3eb82c52744080e0
+// forecast weather 5 day https://api.openweathermap.org/data/2.5/weather?lat=8.4575667&lon=99.7403917&units=metric&appid=c0d919cc900c017e3eb82c52744080e0
+// get current weather https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longtitude}&units=metric&appid=c0d919cc900c017e3eb82c52744080e0
 const sampleData = {
   coord: {
     lon: 99.7404,
@@ -99,6 +106,7 @@ const Home = () => {
 
   return (
     <View style={{flex: 1, backgroundColor: '#FFE142'}}>
+      <StatusBar barStyle="dark-content" backgroundColor="#FFE142" />
       <View style={{flex: 0.1}}>
         <Text style={globalStyles.nameText}>{sampleData.name}</Text>
       </View>

@@ -8,6 +8,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Home from './screens/Home';
 import ListLocation from './screens/ListLocation';
 import Infomation from './screens/Infomation';
+import Forecast from './screens/Forecast';
 
 import {SCREEN_NAME} from './constants/screensNames';
 
@@ -81,6 +82,20 @@ const App = () => {
           component={Infomation}
           options={{
             title: 'Infomation',
+            headerTitleStyle: {
+              color: '#6EC3FF',
+            },
+            headerStyle: {
+              backgroundColor: '#0085ff',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name={SCREEN_NAME.FORECAST}
+          component={Forecast}
+          options={{
+            title: 'Forecast 7 Days',
             headerTitleStyle: {
               color: '#6EC3FF',
             },
