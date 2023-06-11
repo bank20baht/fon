@@ -1,54 +1,103 @@
 import React, {useState} from 'react';
 import {View, Text, Button, PermissionsAndroid} from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
-import Permissions from 'react-native-permissions';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Entypo from 'react-native-vector-icons/Entypo';
+
+import Home from './screens/Home';
+import ListLocation from './screens/ListLocation';
+import Infomation from './screens/Infomation';
+
+import {SCREEN_NAME} from './constants/screensNames';
+
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const TapScreens = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName={SCREEN_NAME.HOME_PAGE}
+      screenOptions={({route}) => ({
+        tabBarIcon: ({color, size}) => {
+          let iconName;
+          if (route.name === SCREEN_NAME.HOME_PAGE) {
+            iconName = 'location';
+          } else if (route.name === SCREEN_NAME.LIST_PAGE) {
+            iconName = 'list';
+          }
+          if (!iconName) {
+            return null; // or provide a fallback icon or handle the error accordingly
+          }
+
+          return <Entypo name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: '#e0ffff', // Change the active tab color
+        tabBarInactiveTintColor: 'black', // Change the inactive tab color
+        tabBarStyle: {
+          backgroundColor: '#0085ff', // Change the background color of the tab bar
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+        },
+      })}>
+      <Tab.Screen
+        name={SCREEN_NAME.HOME_PAGE}
+        component={Home}
+        options={{
+          title: 'Home',
+          headerTitleStyle: {
+            color: '#e0ffff',
+          },
+          headerStyle: {
+            backgroundColor: '#0085ff',
+          },
+          headerTitleAlign: 'center',
+        }}
+      />
+      <Tab.Screen
+        name={SCREEN_NAME.LIST_PAGE}
+        component={ListLocation}
+        options={{
+          title: 'List Location',
+          headerTitleStyle: {
+            color: '#e0ffff',
+          },
+          headerStyle: {
+            backgroundColor: '#0085ff',
+          },
+          headerTitleAlign: 'center',
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 const App = () => {
-  const [latitude, setLatitude] = useState<number | null>(null);
-  const [longitude, setLongitude] = useState<number | null>(null);
-
-  const handleButtonPress = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Location Permission',
-          message: 'App needs access to your location.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        Geolocation.getCurrentPosition(
-          position => {
-            setLatitude(position.coords.latitude);
-            setLongitude(position.coords.longitude);
-          },
-          error => {
-            console.log(error.code, error.message);
-          },
-          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-        );
-      } else {
-        console.log('Location permission denied.');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
-    <View>
-      <Button title="Get Location" onPress={handleButtonPress} />
-      {latitude !== null && longitude !== null && (
-        <View>
-          <Text>Latitude: {latitude}</Text>
-          <Text>Longitude: {longitude}</Text>
-        </View>
-      )}
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Tabs"
+          component={TapScreens}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={SCREEN_NAME.INFORMATION}
+          component={Infomation}
+          options={{
+            title: 'Infomation',
+            headerTitleStyle: {
+              color: '#6EC3FF',
+            },
+            headerStyle: {
+              backgroundColor: '#0085ff',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
