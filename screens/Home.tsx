@@ -105,8 +105,8 @@ const Home = () => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: '#FFE142'}}>
-      <StatusBar barStyle="dark-content" backgroundColor="#FFE142" />
+    <View style={{flex: 1, backgroundColor: '#FFB347'}}>
+      <StatusBar barStyle="dark-content" backgroundColor={'#FFB347'} />
       <View style={{flex: 0.1}}>
         <Text style={globalStyles.nameText}>{sampleData.name}</Text>
       </View>

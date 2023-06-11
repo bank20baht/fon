@@ -33,10 +33,10 @@ const TapScreens = () => {
 
           return <Entypo name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#e0ffff', // Change the active tab color
-        tabBarInactiveTintColor: 'black', // Change the inactive tab color
+        tabBarActiveTintColor: '#FFB347', // Change the active tab color
+        tabBarInactiveTintColor: 'white', // Change the inactive tab color
         tabBarStyle: {
-          backgroundColor: '#0085ff', // Change the background color of the tab bar
+          backgroundColor: '#363636', // Change the background color of the tab bar
         },
         tabBarLabelStyle: {
           fontSize: 12,
@@ -56,10 +56,10 @@ const TapScreens = () => {
         options={{
           title: 'List Location',
           headerTitleStyle: {
-            color: '#e0ffff',
+            color: 'black',
           },
           headerStyle: {
-            backgroundColor: '#0085ff',
+            backgroundColor: '#FFB347',
           },
           headerTitleAlign: 'center',
         }}
