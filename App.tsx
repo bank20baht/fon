@@ -46,13 +46,7 @@ const TapScreens = () => {
         component={Home}
         options={{
           title: 'Home',
-          headerTitleStyle: {
-            color: '#e0ffff',
-          },
-          headerStyle: {
-            backgroundColor: '#0085ff',
-          },
-          headerTitleAlign: 'center',
+          headerShown: false,
         }}
       />
       <Tab.Screen
