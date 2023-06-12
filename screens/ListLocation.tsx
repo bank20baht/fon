@@ -5,14 +5,19 @@ import AnimatedNumber from 'react-native-animated-number';
 type Props = {};
 
 const ListLocation = (props: Props) => {
-  const [currInteger, setCurrInteger] = React.useState(100);
+  const [currInteger, setCurrInteger] = React.useState(0);
   return (
     <View>
       <AnimatedNumber value={currInteger} steps={100} />
       <Button
         title="a"
         onPress={() => {
-          setCurrInteger(currInteger + 100);
+          setCurrInteger(100);
+        }}></Button>
+      <Button
+        title="b"
+        onPress={() => {
+          setCurrInteger(1);
         }}></Button>
       <Text>ListLocation</Text>
     </View>

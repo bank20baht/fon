@@ -26,6 +26,8 @@ const TapScreens = () => {
             iconName = 'location';
           } else if (route.name === SCREEN_NAME.LIST_PAGE) {
             iconName = 'list';
+          } else if (route.name === SCREEN_NAME.FORECAST) {
+            iconName = 'calendar';
           }
           if (!iconName) {
             return null; // or provide a fallback icon or handle the error accordingly
@@ -46,7 +48,7 @@ const TapScreens = () => {
         name={SCREEN_NAME.HOME_PAGE}
         component={Home}
         options={{
-          title: 'Home',
+          title: 'Today',
           headerShown: false,
         }}
       />
@@ -55,6 +57,20 @@ const TapScreens = () => {
         component={ListLocation}
         options={{
           title: 'List Location',
+          headerTitleStyle: {
+            color: 'black',
+          },
+          headerStyle: {
+            backgroundColor: '#FFB347',
+          },
+          headerTitleAlign: 'center',
+        }}
+      />
+      <Tab.Screen
+        name={SCREEN_NAME.FORECAST}
+        component={Forecast}
+        options={{
+          title: 'Forecast 5 Days',
           headerTitleStyle: {
             color: 'black',
           },
@@ -82,20 +98,6 @@ const App = () => {
           component={Infomation}
           options={{
             title: 'Infomation',
-            headerTitleStyle: {
-              color: '#6EC3FF',
-            },
-            headerStyle: {
-              backgroundColor: '#0085ff',
-            },
-            headerTitleAlign: 'center',
-          }}
-        />
-        <Stack.Screen
-          name={SCREEN_NAME.FORECAST}
-          component={Forecast}
-          options={{
-            title: 'Forecast 7 Days',
             headerTitleStyle: {
               color: '#6EC3FF',
             },
