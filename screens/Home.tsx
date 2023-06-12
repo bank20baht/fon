@@ -16,7 +16,7 @@ import globalStyles from '../styles/globalStyles';
 
 import DateLabel from '../components/DateLabel';
 import CardWeather from '../components/CardWeather';
-import WeekForecast from '../components/WeekForecast';
+import TodayForecastCard from '../components/TodayForecastCard';
 
 import {sampleData, data5days} from '../constants/data';
 
@@ -92,7 +92,7 @@ const Home = () => {
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <Text style={globalStyles.highlightText}>Today Forecast</Text>
             </View>
-            <WeekForecast list={data5days.list} />
+            <TodayForecastCard list={data5days.list} />
           </View>
         </View>
       </ScrollView>

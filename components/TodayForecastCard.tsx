@@ -17,7 +17,7 @@ type Props = {
   }[];
 };
 
-const WeekForecast = (props: Props) => {
+const TodayForecastCard = (props: Props) => {
   const today = new Date().toISOString().slice(0, 10);
   const filteredData = props.list.filter(item => item.dt_txt.includes(today));
   return (
@@ -39,7 +39,12 @@ const WeekForecast = (props: Props) => {
             <View style={styles.container}>
               <Text style={globalStyles.Text}>{item.main.temp.toFixed()}°</Text>
               <Image
-                style={{width: 50, height: 50}}
+                style={{
+                  width: 50,
+                  height: 50,
+                  backgroundColor: '#999999',
+                  borderRadius: 40,
+                }}
                 source={{
                   uri: `https://openweathermap.org/img/wn/${item.weather[0].icon}@4x.png`,
                 }}
@@ -54,7 +59,7 @@ const WeekForecast = (props: Props) => {
   );
 };
 
-export default WeekForecast;
+export default TodayForecastCard;
 
 const styles = StyleSheet.create({
   container: {
@@ -64,5 +69,6 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 5,
     alignItems: 'center',
+    backgroundColor: '#ffecc9',
   },
 });
