@@ -46,8 +46,14 @@ const Home = ({navigation}: any) => {
   React.useEffect(() => {
     const fetchDataFromStorage = async () => {
       const storedWeatherData = await getData('weatherData');
+      const storedForecastData = await getData('forecastData');
+
       if (storedWeatherData) {
         setWeatherData(storedWeatherData);
+      }
+
+      if (storedForecastData) {
+        setForecastData(storedForecastData);
       }
     };
 
@@ -159,7 +165,7 @@ const Home = ({navigation}: any) => {
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <Text style={globalStyles.highlightText}>Today Forecast</Text>
             </View>
-            <TodayForecastCard list={data5days.list} />
+            <TodayForecastCard list={forecastData?.list} />
           </View>
         </View>
       </ScrollView>

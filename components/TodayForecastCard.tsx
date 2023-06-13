@@ -3,7 +3,7 @@ import React from 'react';
 import globalStyles from '../styles/globalStyles';
 
 type Props = {
-  list: {
+  list?: {
     dt: number;
     main: {
       temp: number;
@@ -19,7 +19,7 @@ type Props = {
 
 const TodayForecastCard = (props: Props) => {
   const today = new Date().toISOString().slice(0, 10);
-  const filteredData = props.list.filter(item => item.dt_txt.includes(today));
+  const filteredData = props?.list?.filter(item => item.dt_txt.includes(today));
   return (
     <View>
       <FlatList
