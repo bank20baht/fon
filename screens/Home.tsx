@@ -20,10 +20,18 @@ import TodayForecastCard from '../components/TodayForecastCard';
 
 import {sampleData, data5days} from '../constants/data';
 
-const Home = () => {
-  const [latitude, setLatitude] = useState<number | null>(null);
-  const [longitude, setLongitude] = useState<number | null>(null);
+import axios from '../src/hooks/axios';
 
+type LocationType = {
+  latitude: number | null;
+  longitude: number | null;
+};
+
+const Home = () => {
+  const [currentLocation, setCurrentLocation] = useState<LocationType>({
+    latitude: 13.736717,
+    longitude: 100.523186,
+  });
   const handleButtonPress = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -40,8 +48,10 @@ const Home = () => {
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         Geolocation.getCurrentPosition(
           position => {
-            setLatitude(position.coords.latitude);
-            setLongitude(position.coords.longitude);
+            setCurrentLocation({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            });
           },
           error => {
             console.log(error.code, error.message);
@@ -54,12 +64,14 @@ const Home = () => {
     } catch (error) {
       console.log(error);
     }
+    console.log(currentLocation);
   };
 
   return (
     <View style={{flex: 1, backgroundColor: '#FFB347'}}>
       <StatusBar barStyle="dark-content" backgroundColor={'#FFB347'} />
-      <View style={{flex: 0.1}}>
+      <View style={{flex: 0.1, flexDirection: 'row'}}>
+        <Button title="refresh location" onPress={handleButtonPress}></Button>
         <Text style={globalStyles.nameText}>{sampleData.name}</Text>
       </View>
       <ScrollView style={{flex: 0.9}}>
