@@ -35,7 +35,7 @@ const CardWeather = (props: Props) => {
             size={50}
           />
           <Text style={{color: 'white', textAlign: 'center'}}>
-            {windSpeed}km/h
+            {windSpeed} km/h
           </Text>
           <Text style={{color: 'white', textAlign: 'center'}}>Wind</Text>
         </View>
@@ -45,7 +45,9 @@ const CardWeather = (props: Props) => {
             color={'white'}
             size={50}
           />
-          <Text style={{color: 'white', textAlign: 'center'}}>{humidity}%</Text>
+          <Text style={{color: 'white', textAlign: 'center'}}>
+            {humidity} %
+          </Text>
           <Text style={{color: 'white', textAlign: 'center'}}>Humidity</Text>
         </View>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>

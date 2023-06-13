@@ -1,7 +1,6 @@
-import React from 'react';
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import globalStyles from '../styles/globalStyles';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 type Props = {
   list: {
@@ -19,6 +18,8 @@ type Props = {
 };
 
 const FiveDayForecastCard = (props: Props) => {
+  const [pressCard, setPressCard] = useState(false);
+
   const groupDataByDate = (list: any[]) => {
     const groupedData: any[] = [];
 
@@ -60,30 +61,35 @@ const FiveDayForecastCard = (props: Props) => {
     });
 
     return (
-      <View style={styles.container}>
-        <Text style={globalStyles.Text}>{formatted}</Text>
-        <Text style={globalStyles.Text}>{data.main.temp.toFixed()}°</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <Text style={globalStyles.Text}>{data.weather[0].description}</Text>
-          <Image
+      <Pressable
+        onPress={() => {
+          setPressCard(true);
+        }}>
+        <View style={styles.container}>
+          <Text style={globalStyles.Text}>{formatted}</Text>
+          <Text style={globalStyles.Text}>{data.main.temp.toFixed()}°</Text>
+          <View
             style={{
-              width: 50,
-              height: 50,
-              backgroundColor: '#999999',
-              borderRadius: 40,
-              marginHorizontal: 10,
-            }}
-            source={{
-              uri: `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
-            }}
-          />
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <Text style={globalStyles.Text}>{data.weather[0].description}</Text>
+            <Image
+              style={{
+                width: 50,
+                height: 50,
+                backgroundColor: '#999999',
+                borderRadius: 40,
+                marginHorizontal: 10,
+              }}
+              source={{
+                uri: `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
+              }}
+            />
+          </View>
         </View>
-      </View>
+      </Pressable>
     );
   };
 

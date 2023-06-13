@@ -9,86 +9,64 @@ import {
   Image,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import Permissions from 'react-native-permissions';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import globalStyles from '../styles/globalStyles';
 
 import DateLabel from '../components/DateLabel';
 import CardWeather from '../components/CardWeather';
 import TodayForecastCard from '../components/TodayForecastCard';
-
-import {sampleData, data5days} from '../constants/data';
+import {SCREEN_NAME} from '../constants/screensNames';
+import {weatherDataType} from '../types/weatherDataType';
+import {forecastDataType} from '../types/forecastDataType';
+import {data5days} from '../constants/data';
 
 import axios from '../src/axios';
+import {getData, storeData} from '../src/hooks/asyncStorage';
 
 type LocationType = {
   latitude: number | null;
   longitude: number | null;
 };
 
-type weatherData = {
-  coord: {
-    lon: number;
-    lat: number;
-  };
-  weather: {
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }[];
-  base: string;
-  main: {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-    sea_level: number;
-    grnd_level: number;
-  };
-  visibility: number;
-  wind: {
-    speed: number;
-    deg: number;
-    gust: number;
-  };
-  rain: {
-    '1h': number;
-  };
-  clouds: {
-    all: number;
-  };
-  dt: number;
-  sys: {
-    type: number;
-    id: number;
-    country: string;
-    sunrise: number;
-    sunset: number;
-  };
-  timezone: number;
-  id: number;
-  name: string;
-  cod: number;
-};
-
-const Home = () => {
-  const [weatherData, setWeatherData] = useState<weatherData>();
+const Home = ({navigation}: any) => {
+  const [weatherData, setWeatherData] = useState<weatherDataType>();
+  const [forecastData, setForecastData] = useState<forecastDataType>();
   const [currentLocation, setCurrentLocation] = useState<LocationType>({
     latitude: 13.736717,
     longitude: 100.523186,
   });
+  const informationPage = () => {
+    navigation.navigate(SCREEN_NAME.INFORMATION, {
+      weatherData: weatherData,
+    });
+  };
+
+  React.useEffect(() => {
+    const fetchDataFromStorage = async () => {
+      const storedWeatherData = await getData('weatherData');
+      if (storedWeatherData) {
+        setWeatherData(storedWeatherData);
+      }
+    };
+
+    fetchDataFromStorage();
+  }, []);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
+      const responseWeather = await axios.get(
         `weather?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&units=metric&appid=c0d919cc900c017e3eb82c52744080e0`,
       );
+      setWeatherData(responseWeather.data);
 
-      setWeatherData(response.data);
+      const responseForecast = await axios.get(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&units=metric&appid=c0d919cc900c017e3eb82c52744080e0`,
+      );
+      setForecastData(responseForecast.data);
+      storeData('weatherData', responseWeather.data);
+      storeData('forecastData', responseForecast.data);
       console.log(weatherData);
     } catch (error) {
       console.error(error);
@@ -134,9 +112,21 @@ const Home = () => {
   return (
     <View style={{flex: 1, backgroundColor: '#FFB347'}}>
       <StatusBar barStyle="dark-content" backgroundColor={'#FFB347'} />
-      <View style={{flex: 0.1, flexDirection: 'row'}}>
-        <Button title="refresh location" onPress={handleButtonPress}></Button>
+      <View
+        style={{
+          flex: 0.1,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
         <Text style={globalStyles.nameText}>{weatherData?.name}</Text>
+        <FontAwesome
+          name="refresh"
+          size={25}
+          color={'black'}
+          onPress={handleButtonPress}
+          style={{paddingLeft: 10}}
+        />
       </View>
       <ScrollView style={{flex: 0.9}}>
         <View>
@@ -164,6 +154,7 @@ const Home = () => {
               humidity={weatherData?.main.humidity}
               visibility={weatherData?.visibility}
             />
+            <Button title="more information" onPress={informationPage} />
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <Text style={globalStyles.highlightText}>Today Forecast</Text>

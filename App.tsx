@@ -45,14 +45,6 @@ const TapScreens = () => {
         },
       })}>
       <Tab.Screen
-        name={SCREEN_NAME.HOME_PAGE}
-        component={Home}
-        options={{
-          title: 'Today',
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
         name={SCREEN_NAME.LIST_PAGE}
         component={ListLocation}
         options={{
@@ -64,6 +56,14 @@ const TapScreens = () => {
             backgroundColor: '#FFB347',
           },
           headerTitleAlign: 'center',
+        }}
+      />
+      <Tab.Screen
+        name={SCREEN_NAME.HOME_PAGE}
+        component={Home}
+        options={{
+          title: 'Today',
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -99,10 +99,10 @@ const App = () => {
           options={{
             title: 'Infomation',
             headerTitleStyle: {
-              color: '#6EC3FF',
+              color: 'black',
             },
             headerStyle: {
-              backgroundColor: '#0085ff',
+              backgroundColor: '#FFB347',
             },
             headerTitleAlign: 'center',
           }}
