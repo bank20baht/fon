@@ -4,14 +4,16 @@ import globalStyles from '../styles/globalStyles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type Props = {
-  windSpeed: number;
-  humidity: number;
-  visibility: number;
+  windSpeed: number | undefined;
+  humidity: number | undefined;
+  visibility: number | undefined;
 };
 
 const CardWeather = (props: Props) => {
   const {windSpeed, humidity} = props;
-  const visibility = props.visibility / 1000;
+  const visibility =
+    props.visibility !== undefined ? props.visibility / 1000 : 0;
+
   return (
     <View
       style={{
