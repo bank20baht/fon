@@ -3,6 +3,21 @@ export type forecastDataType = {
   message: number;
   cnt: number;
   list: forecastEntry[];
+  city: cityEntry;
+  country: string;
+  population: number;
+  timezone: number;
+};
+
+export type cityEntry = {
+  id: number;
+  name: string;
+  coord: coord;
+};
+
+export type coord = {
+  lat: number;
+  lon: number;
 };
 
 export type forecastEntry = {

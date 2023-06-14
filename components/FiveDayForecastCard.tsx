@@ -49,7 +49,7 @@ const FiveDayForecastCard = (props: Props) => {
     if (item.type === 'divider') {
       return (
         <View style={styles.dividerContainer}>
-          <Text style={{textAlign: 'center'}}>{item.date}</Text>
+          <Text style={{textAlign: 'center', color: 'black'}}>{item.date}</Text>
         </View>
       );
     }

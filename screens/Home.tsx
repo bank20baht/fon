@@ -20,7 +20,6 @@ import TodayForecastCard from '../components/TodayForecastCard';
 import {SCREEN_NAME} from '../constants/screensNames';
 import {weatherDataType} from '../types/weatherDataType';
 import {forecastDataType} from '../types/forecastDataType';
-import {data5days} from '../constants/data';
 
 import axios from '../src/axios';
 import {getData, storeData} from '../src/hooks/asyncStorage';
@@ -30,13 +29,10 @@ type LocationType = {
   longitude: number | null;
 };
 
-const Home = ({navigation}: any) => {
+const Home = ({route, navigation}: any) => {
   const [weatherData, setWeatherData] = useState<weatherDataType>();
   const [forecastData, setForecastData] = useState<forecastDataType>();
-  const [currentLocation, setCurrentLocation] = useState<LocationType>({
-    latitude: 13.736717,
-    longitude: 100.523186,
-  });
+  const [currentLocation, setCurrentLocation] = useState<LocationType>();
   const informationPage = () => {
     navigation.navigate(SCREEN_NAME.INFORMATION, {
       weatherData: weatherData,
@@ -63,12 +59,12 @@ const Home = ({navigation}: any) => {
   const fetchData = async () => {
     try {
       const responseWeather = await axios.get(
-        `weather?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&units=metric&appid=c0d919cc900c017e3eb82c52744080e0`,
+        `weather?lat=${currentLocation?.latitude}&lon=${currentLocation?.longitude}&units=metric&appid=c0d919cc900c017e3eb82c52744080e0`,
       );
       setWeatherData(responseWeather.data);
 
       const responseForecast = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&units=metric&appid=c0d919cc900c017e3eb82c52744080e0`,
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLocation?.latitude}&lon=${currentLocation?.longitude}&units=metric&appid=c0d919cc900c017e3eb82c52744080e0`,
       );
       setForecastData(responseForecast.data);
       storeData('weatherData', responseWeather.data);
@@ -125,7 +121,9 @@ const Home = ({navigation}: any) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text style={globalStyles.nameText}>{weatherData?.name}</Text>
+        <Text style={globalStyles.nameText}>
+          {weatherData?.name}, {weatherData?.sys.country}
+        </Text>
         <FontAwesome
           name="refresh"
           size={25}

@@ -11,6 +11,10 @@ const globalStyles = StyleSheet.create({
     fontSize: 15,
     color: 'black',
   },
+  h2: {
+    fontSize: 20,
+    color: 'black',
+  },
   TempText: {
     fontSize: 200,
     textAlign: 'center',

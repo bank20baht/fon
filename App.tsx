@@ -9,6 +9,7 @@ import Home from './screens/Home';
 import ListLocation from './screens/ListLocation';
 import Infomation from './screens/Infomation';
 import Forecast from './screens/Forecast';
+import ZipcodeWeather from './screens/ZipcodeWeather';
 
 import {SCREEN_NAME} from './constants/screensNames';
 
@@ -106,6 +107,20 @@ const App = () => {
             },
             headerTitleAlign: 'center',
           }}
+        />
+        <Stack.Screen
+          name={SCREEN_NAME.ZIPCODE}
+          component={ZipcodeWeather}
+          options={({route}) => ({
+            title: 'ZIP CODE',
+            headerTitleStyle: {
+              color: 'black',
+            },
+            headerStyle: {
+              backgroundColor: '#FFB347',
+            },
+            headerTitleAlign: 'center',
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -11,19 +11,30 @@ type Props = {};
 const Forecast = () => {
   const [forecastData, setForecastData] = useState<forecastDataType>();
 
-  useEffect(() => {
-    const fetchForecastData = async () => {
+  React.useEffect(() => {
+    const fetchDataFromStorage = async () => {
       const storedForecastData = await getData('forecastData');
+
       if (storedForecastData) {
         setForecastData(storedForecastData);
       }
     };
 
-    fetchForecastData();
+    fetchDataFromStorage();
   }, []);
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
+      <Text
+        style={{
+          backgroundColor: '#363636',
+          color: '#FFB347',
+          textAlign: 'center',
+          fontSize: 15,
+          paddingVertical: 2,
+        }}>
+        {forecastData?.city.name}
+      </Text>
       <View style={{flex: 1, backgroundColor: '#FFB347'}}>
         {forecastData ? (
           <FiveDayForecastCard list={forecastData.list} />

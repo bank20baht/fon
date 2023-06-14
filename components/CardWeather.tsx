@@ -31,35 +31,37 @@ const CardWeather = (props: Props) => {
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <MaterialCommunityIcons
             name="weather-windy"
-            color={'white'}
+            color={'#FFB347'}
             size={50}
           />
-          <Text style={{color: 'white', textAlign: 'center'}}>
+          <Text style={{color: '#FFB347', textAlign: 'center'}}>
             {windSpeed} km/h
           </Text>
-          <Text style={{color: 'white', textAlign: 'center'}}>Wind</Text>
+          <Text style={{color: '#FFB347', textAlign: 'center'}}>Wind</Text>
         </View>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <MaterialCommunityIcons
             name="water-outline"
-            color={'white'}
+            color={'#FFB347'}
             size={50}
           />
-          <Text style={{color: 'white', textAlign: 'center'}}>
+          <Text style={{color: '#FFB347', textAlign: 'center'}}>
             {humidity} %
           </Text>
-          <Text style={{color: 'white', textAlign: 'center'}}>Humidity</Text>
+          <Text style={{color: '#FFB347', textAlign: 'center'}}>Humidity</Text>
         </View>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <MaterialCommunityIcons
             name="eye-outline"
-            color={'white'}
+            color={'#FFB347'}
             size={50}
           />
-          <Text style={{color: 'white', textAlign: 'center'}}>
+          <Text style={{color: '#FFB347', textAlign: 'center'}}>
             {visibility.toFixed()} km
           </Text>
-          <Text style={{color: 'white', textAlign: 'center'}}>Visibility</Text>
+          <Text style={{color: '#FFB347', textAlign: 'center'}}>
+            Visibility
+          </Text>
         </View>
       </View>
     </View>
