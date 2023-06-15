@@ -39,7 +39,12 @@ const Forecast = () => {
         {forecastData ? (
           <FiveDayForecastCard list={forecastData.list} />
         ) : (
-          <Text>Loading forecast data...</Text>
+          <View
+            style={{flex: 0.9, justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={{fontSize: 20, color: 'black'}}>
+              Loading forecast data...
+            </Text>
+          </View>
         )}
       </View>
     </GestureHandlerRootView>

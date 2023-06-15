@@ -77,12 +77,7 @@ const ListLocation = ({navigation}: any) => {
             value: item.value,
           });
         }}>
-        <View
-          style={{
-            padding: 5,
-            margin: 2,
-            flex: 0.7,
-          }}>
+        <View style={{padding: 5, margin: 2, flex: 0.7}}>
           <Text style={{color: 'black', fontSize: 20, paddingLeft: 5}}>
             {item.value}
           </Text>
@@ -120,6 +115,7 @@ const ListLocation = ({navigation}: any) => {
             placeholder="Add Zip code"
             placeholderTextColor="gray"
             onSubmitEditing={storeValue}
+            keyboardType="numeric"
           />
           <AntDesign
             name="plussquare"
@@ -132,13 +128,20 @@ const ListLocation = ({navigation}: any) => {
           />
         </View>
       </View>
-      <View style={{flex: 0.9}}>
-        <FlatList
-          data={storedValue}
-          keyExtractor={item => item.value}
-          renderItem={renderItem}
-        />
-      </View>
+      {storedValue.length > 0 ? (
+        <View style={{flex: 0.9}}>
+          <FlatList
+            data={storedValue}
+            keyExtractor={item => item.value}
+            renderItem={renderItem}
+          />
+        </View>
+      ) : (
+        <View
+          style={{flex: 0.9, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={{color: 'black'}}>เพิ่ม Zipcode ของคุณสิ</Text>
+        </View>
+      )}
     </View>
   );
 };
