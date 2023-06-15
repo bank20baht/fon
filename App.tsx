@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Button, PermissionsAndroid} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -12,6 +12,7 @@ import Forecast from './screens/Forecast';
 import ZipcodeWeather from './screens/ZipcodeWeather';
 
 import {SCREEN_NAME} from './constants/screensNames';
+import SplashScreen from 'react-native-splash-screen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -86,6 +87,10 @@ const TapScreens = () => {
 };
 
 const App = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
