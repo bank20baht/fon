@@ -7,6 +7,7 @@ import {
   ScrollView,
   StatusBar,
   Image,
+  Pressable,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -226,7 +227,41 @@ const Home = ({route, navigation}: any) => {
               humidity={weatherData?.main.humidity}
               visibility={weatherData?.visibility}
             />
-            <Button title="more information" onPress={informationPage} />
+            {weatherData ? (
+              <Pressable onPress={informationPage}>
+                <View>
+                  <Text
+                    style={{
+                      color: '#FFB347',
+                      backgroundColor: 'black',
+                      fontSize: 20,
+                      padding: 5,
+                      textAlign: 'center',
+                    }}>
+                    MORE INFOMATION
+                  </Text>
+                </View>
+              </Pressable>
+            ) : (
+              <View
+                style={{
+                  flex: 0.9,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    color: '#FFB347',
+                    backgroundColor: 'black',
+                    fontSize: 15,
+                    padding: 5,
+                    textAlign: 'center',
+                  }}>
+                  ข้อมูลผิดพลาด อัพเดท location ของคุณเเล้วลองใหม่
+                </Text>
+              </View>
+            )}
+
             <View
               style={{
                 flexDirection: 'row',
